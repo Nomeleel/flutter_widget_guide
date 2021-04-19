@@ -13,14 +13,14 @@ class ContainerTextCentered extends StatelessWidget {
             child: Container(
               color: Colors.purple,
               alignment: Alignment.center,
-              child: const Text(text),
+              child: Text(text),
             ),
           ),
           Expanded(
             child: Container(
               color: Colors.blue,
               child: Center(
-                child: const Text(text),
+                child: Text(text),
               ),
             ),
           ),

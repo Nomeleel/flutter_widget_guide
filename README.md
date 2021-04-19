@@ -14,7 +14,7 @@
 | 功能 | 优选 | 不推荐 | 描述
 | :------: | :------: | :------: | ------ |
 | 容器 | [Container](https://api.flutter.dev/flutter/widgets/Container-class.html) | LimitedBox、ConstrainedBox、Align、Padding、ClipPath、DecoratedBox、Transform | 功能这么多的Container用起来它不香吗，但是如果你只使用了**一个属性**，例如外边距，还是建议直接使用Padding。 |
-| [容器内容居中](#容器内容居中) | Container中设置Alignment.**center** | Center | Container中不要再套用Center了，直接设置Alignment为center即可。|
+| [容器内容居中](#容器内容居中) | 设置Alignment.**center** | Center | Container中不要再套用Center了，直接设置Alignment为center即可。|
 | [阴影](#阴影) | [PhysicalModel](https://api.flutter.dev/flutter/widgets/PhysicalModel-class.html)、[Card](https://api.flutter.dev/flutter/material/Card-class.html) | BoxShadow | 有多种实现方式，但是PhysicalModel术业有专工。 |
 | 卡片效果 | [Card](https://api.flutter.dev/flutter/material/Card-class.html) | Material | Card的效果其实是使用Material进行了上层封装，想要实现卡片效果，直接使用Card即可。skr～ |
 | 圆形头像 | CircleAvatar、[ClipOval](https://api.flutter.dev/flutter/widgets/ClipOval-class.html) | ClipRRect | ClipRRect更适用于圆角，它的圆形只是一种特殊情况。ClipRRect虽是椭圆，但更常用它的圆形表达形式。CircleAvatar看到名字就不用太多解释了。 |
@@ -115,20 +115,3 @@ class PhysicalModelTest extends StatelessWidget {
 }
 
 ```
-
-
-
-<style>
-table th:first-of-type {
-    width: 10%;
-}
-table th:nth-of-type(2) {
-    width: 20%;
-}
-table th:nth-of-type(3) {
-    width: 20%;
-}
-table th:nth-of-type(4) {
-    width: 50%;
-}
-</style>

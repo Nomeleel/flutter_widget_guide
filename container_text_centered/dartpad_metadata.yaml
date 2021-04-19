@@ -2,4 +2,3 @@ name: Container text centered snippet.
 mode: flutter
 files:
   - name: main.dart
-  - name: test.dart

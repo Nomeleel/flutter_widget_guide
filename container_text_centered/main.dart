@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
 
+void main() {
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: ContainerTextCentered(),
+    ),
+  );
+}
+
 class ContainerTextCentered extends StatelessWidget {
   const ContainerTextCentered({Key key}) : super(key: key);
 

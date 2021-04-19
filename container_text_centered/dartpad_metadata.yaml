@@ -1,4 +1,5 @@
 name: Container text centered snippet.
 mode: flutter
 files:
+  - name: main.dart
   - name: container_text_centered.dart

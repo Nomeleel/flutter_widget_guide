@@ -9,8 +9,109 @@
 
 在这里把它分享出来，希望大家一起学习，一起探讨。以下都是我自己的主观认知，如有不对，还望指正。
 
-# 概览
+## 概览
 
-<div>
-<iframe src="https://dartpad.dev/embed-flutter.html?gh_owner=Nomeleel&gh_repo=flutter_widget_guide&gh_path=container_text_centered&theme=dark&run=true&split=60" style="width: 100%; height: 600px;"></iframe>
-</div>
+| 功能 | 优选 | 不推荐 | 描述
+| :------: | :------: | :------: | ------ |
+| 容器 | [Container](https://api.flutter.dev/flutter/widgets/Container-class.html) | LimitedBox、ConstrainedBox、Align、Padding、ClipPath、DecoratedBox、Transform | 功能这么多的Container用起来它不香吗，但是如果你只使用了**一个属性**，例如外边距，还是建议直接使用Padding。 |
+| [容器内容居中](#容器内容居中) | Container中设置Alignment.**center** | Center | Container中不要再套用Center了，直接设置Alignment为center即可。|
+| [阴影](#阴影) | [PhysicalModel](https://api.flutter.dev/flutter/widgets/PhysicalModel-class.html)、[Card](https://api.flutter.dev/flutter/material/Card-class.html) | BoxShadow | 有多种实现方式，但是PhysicalModel术业有专工。 |
+| 卡片效果 | [Card](https://api.flutter.dev/flutter/material/Card-class.html) | Material | Card的效果其实是使用Material进行了上层封装，想要实现卡片效果，直接使用Card即可。skr～ |
+| 圆形头像 | CircleAvatar、[ClipOval](https://api.flutter.dev/flutter/widgets/ClipOval-class.html) | ClipRRect | ClipRRect更适用于圆角，它的圆形只是一种特殊情况。ClipRRect虽是椭圆，但更常用它的圆形表达形式。CircleAvatar看到名字就不用太多解释了。 |
+| 待续 |  |  |  |
+
+
+## 演示
+
+### 容器内容居中
+
+```dart
+class ContainerTextCentered extends StatelessWidget {
+  const ContainerTextCentered({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final String text = '汉字的序顺并不定一能影阅响读';
+    return Scaffold(
+      body: Column(
+        children: [
+          Expanded(
+            child: Container(
+              color: Colors.purple,
+              alignment: Alignment.center,
+              child: Text(text),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              color: Colors.blue,
+              child: Center(
+                child: Text(text),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+```
+
+### 阴影
+
+```dart
+class PhysicalModelTest extends StatelessWidget {
+  const PhysicalModelTest({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final Widget child = FlutterLogo(
+      size: 120.0,
+    );
+    final BorderRadius borderRadius = BorderRadius.all(Radius.circular(10.0));
+    return Scaffold(
+      body: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            PhysicalModel(
+              color: Colors.grey,
+              elevation: 10.0,
+              shadowColor: Colors.grey[900],
+              clipBehavior: Clip.hardEdge,
+              borderRadius: borderRadius,
+              child: child,
+            ),
+            Card(
+              color: Colors.grey,
+              elevation: 10.0,
+              shadowColor: Colors.grey[900],
+              clipBehavior: Clip.hardEdge,
+              shape: RoundedRectangleBorder(
+                borderRadius: borderRadius,
+              ),
+              child: child,
+            ),
+            Container(
+              clipBehavior: Clip.hardEdge,
+              decoration: BoxDecoration(
+                color: Colors.grey,
+                borderRadius: borderRadius,
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                    color: Colors.grey,
+                    offset: Offset(2.0, 8.0),
+                    blurRadius: 10.0,
+                  )
+                ],
+              ),
+              child: child,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+```

@@ -8,3 +8,7 @@
 我呢开始也走了不少弯路，一边享受着Widget可以无限嵌套封装的快感，一边感到不知道到底应该选用哪个Widget的困惑。随着慢慢的了解，也渐渐的总结出了不同场景下，应该使用哪些Widget。
 
 在这里把它分享出来，希望大家一起学习，一起探讨。以下都是我自己的主观认知，如有不对，还望指正。
+
+# 概览
+
+<iframe src="https://dartpad.dev/embed-flutter.html?gh_owner=Nomeleel&gh_repo=flutter_widget_guide&gh_path=container_text_centered&theme=dark&run=true&split=60" style="width: 100%; height: 600px;"></iframe>

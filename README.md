@@ -11,13 +11,20 @@
 
 ## 概览
 
-| 功能 | 优选 | 不推荐 | 描述
+**详细可点击链接在官网查看对应Widget的文档以及演示(部分Widget已经有详细演示)**
+
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [功能](#演示) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 优选 | 不推荐 | 描述
 | :------: | :------: | :------: | ------ |
 | 容器 | [Container](https://api.flutter.dev/flutter/widgets/Container-class.html) | LimitedBox、ConstrainedBox、Align、Padding、ClipPath、DecoratedBox、Transform | 功能这么多的Container用起来它不香吗，但是如果你只使用了**一个属性**，例如外边距，还是建议直接使用Padding。 |
 | [容器内容居中](#容器内容居中) | 设置Alignment.**center** | Center | Container中不要再套用Center了，直接设置Alignment为center即可。|
 | [阴影](#阴影) | [PhysicalModel](https://api.flutter.dev/flutter/widgets/PhysicalModel-class.html)、[Card](https://api.flutter.dev/flutter/material/Card-class.html) | BoxShadow | 有多种实现方式，但是PhysicalModel术业有专工。 |
 | 卡片效果 | [Card](https://api.flutter.dev/flutter/material/Card-class.html) | Material | Card的效果其实是使用Material进行了上层封装，想要实现卡片效果，直接使用Card即可。skr～ |
 | 圆形头像 | CircleAvatar、[ClipOval](https://api.flutter.dev/flutter/widgets/ClipOval-class.html) | ClipRRect | ClipRRect更适用于圆角，它的圆形只是一种特殊情况。ClipRRect虽是椭圆，但更常用它的圆形表达形式。CircleAvatar看到名字就不用太多解释了。 |
+| 局部刷新 | ValueNotifier & [ValueListenable**Builder**](https://api.flutter.dev/flutter/widgets/ValueListenableBuilder-class.html) | 自封装StatefulWidget | 多留意后缀是**Builder**的组件，有些功能其实官方已经有了封装，这等小事就不要再去造轮子了。 |
+| 布局刷新 | [Layout**Builder**](https://api.flutter.dev/flutter/widgets/LayoutBuilder-class.html) |  | 👆 可用于Web页面做自适应布局。|
+| 方向更改 | [Orientation**Builder**](https://api.flutter.dev/flutter/widgets/OrientationBuilder-class.html) |  | 👆移动设备方向改变触发布局更新。 |
+| 单次异步 | [Future**Builder**](https://api.flutter.dev/flutter/widgets/FutureBuilder-class.html) |  | 👆 异步只能执行一次。 |
+| 多次异步流 | [Stream**Builder**](https://api.flutter.dev/flutter/widgets/StreamBuilder-class.html) |  | 👆 可以向数据流中添加多次值，每次接收到数据后便刷新布局。 |
 | 待续 |  |  |  |
 
 
@@ -25,9 +32,7 @@
 
 ### 容器内容居中
 
-[动手尝试一波](https://nomeleel.github.io/flutter_widget_guide/container_text_centered/index.html){target="_blank"}
-[动手尝试一波](https://nomeleel.github.io/flutter_widget_guide/container_text_centered/index.html){:target="_blank"}
-<a herf="https://nomeleel.github.io/flutter_widget_guide/container_text_centered/index.html" target="_blank">动手尝试一波</a>
+[动手尝试一波](https://nomeleel.github.io/flutter_widget_guide/container_text_centered/index.html)
 
 ```dart
 class ContainerTextCentered extends StatelessWidget {

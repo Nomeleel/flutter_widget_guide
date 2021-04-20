@@ -25,6 +25,10 @@
 
 ### 容器内容居中
 
+[动手尝试一波](https://nomeleel.github.io/flutter_widget_guide/container_text_centered/index.html){target="_blank"}
+[动手尝试一波](https://nomeleel.github.io/flutter_widget_guide/container_text_centered/index.html){:target="_blank"}
+<a herf="https://nomeleel.github.io/flutter_widget_guide/container_text_centered/index.html" target="_blank">动手尝试一波</a>
+
 ```dart
 class ContainerTextCentered extends StatelessWidget {
   const ContainerTextCentered({Key key}) : super(key: key);

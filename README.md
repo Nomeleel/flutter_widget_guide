@@ -42,92 +42,65 @@
 [动手尝试一波](https://nomeleel.github.io/flutter_widget_guide/container_text_centered/index.html)
 
 ```dart
-class ContainerTextCentered extends StatelessWidget {
-  const ContainerTextCentered({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final String text = '汉字的序顺并不定一能影阅响读';
-    return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: Container(
-              color: Colors.purple,
-              alignment: Alignment.center,
-              child: Text(text),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              color: Colors.blue,
-              child: Center(
-                child: Text(text),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+// ✌️
+Container(
+  color: Colors.purple,
+  alignment: Alignment.center,
+  child: Text(text),
+)
+// 🙅‍♂️     
+Container(
+  color: Colors.blue,
+  child: Center(
+    child: Text(text),
+  ),
+)
 ```
 
 ### 阴影
 
-```dart
-class PhysicalModelTest extends StatelessWidget {
-  const PhysicalModelTest({Key key}) : super(key: key);
+[动手尝试一波](https://nomeleel.github.io/flutter_widget_guide/physical_model_card_shadow/index.html)
 
-  @override
-  Widget build(BuildContext context) {
-    final Widget child = FlutterLogo(
-      size: 120.0,
-    );
-    final BorderRadius borderRadius = BorderRadius.all(Radius.circular(10.0));
-    return Scaffold(
-      body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            PhysicalModel(
-              color: Colors.grey,
-              elevation: 10.0,
-              shadowColor: Colors.grey[900],
-              clipBehavior: Clip.hardEdge,
-              borderRadius: borderRadius,
-              child: child,
-            ),
-            Card(
-              color: Colors.grey,
-              elevation: 10.0,
-              shadowColor: Colors.grey[900],
-              clipBehavior: Clip.hardEdge,
-              shape: RoundedRectangleBorder(
-                borderRadius: borderRadius,
-              ),
-              child: child,
-            ),
-            Container(
-              clipBehavior: Clip.hardEdge,
-              decoration: BoxDecoration(
-                color: Colors.grey,
-                borderRadius: borderRadius,
-                boxShadow: <BoxShadow>[
-                  BoxShadow(
-                    color: Colors.grey,
-                    offset: Offset(2.0, 8.0),
-                    blurRadius: 10.0,
-                  )
-                ],
-              ),
-              child: child,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+<div align="center">
+    <img src="assets/screenshot/physical_model_card_shadow.png" />
+</div>
+
+```dart
+// ✌️
+PhysicalModel(
+  color: Colors.grey,
+  elevation: 10.0,
+  shadowColor: Colors.grey[900],
+  clipBehavior: Clip.hardEdge,
+  borderRadius: borderRadius,
+  child: child,
+)
+// ✌️
+Card(
+  color: Colors.grey,
+  elevation: 10.0,
+  shadowColor: Colors.grey[900],
+  clipBehavior: Clip.hardEdge,
+  shape: RoundedRectangleBorder(
+    borderRadius: borderRadius,
+  ),
+  child: child,
+)
+// 🙅‍♂️ 
+Container(
+  clipBehavior: Clip.hardEdge,
+  decoration: BoxDecoration(
+    color: Colors.grey,
+    borderRadius: borderRadius,
+    boxShadow: <BoxShadow>[
+      BoxShadow(
+        color: Colors.grey,
+        offset: Offset(2.0, 8.0),
+        blurRadius: 10.0,
+      )
+    ],
+  ),
+  child: child,
+),
 
 ```

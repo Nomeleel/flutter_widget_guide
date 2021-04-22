@@ -1,0 +1,4 @@
+name: PhysicalModel VS Card VS Shadow.
+mode: flutter
+files:
+  - name: main.dart

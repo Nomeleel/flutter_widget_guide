@@ -42,7 +42,7 @@
 [动手尝试一波](https://nomeleel.github.io/flutter_widget_guide/container_text_centered/index.html)
 
 ```dart
-// ✌️
+// 👍
 Container(
   color: Colors.purple,
   alignment: Alignment.center,
@@ -66,7 +66,7 @@ Container(
 </div>
 
 ```dart
-// ✌️
+// 👍
 PhysicalModel(
   color: Colors.grey,
   elevation: 10.0,
@@ -75,7 +75,7 @@ PhysicalModel(
   borderRadius: borderRadius,
   child: child,
 )
-// ✌️
+// 👍
 Card(
   color: Colors.grey,
   elevation: 10.0,

@@ -36,6 +36,7 @@
 | 按钮 | [ElevatedButton](https://api.flutter.dev/flutter/material/ElevatedButton-class.html)、[TextButton](https://api.flutter.dev/flutter/material/TextButton-class.html)、[OutlinedButton](https://api.flutter.dev/flutter/material/OutlinedButton-class.html)、[IconButton](https://api.flutter.dev/flutter/material/IconButton-class.html)、[CupertinoButton](https://api.flutter.dev/flutter/cupertino/CupertinoButton-class.html) | GestureDetector、InkWell、Listener | 大多数情况下你如果只需要一个点击事件，那以上Widget都可以满足需求，但相对来说体验上会差一些。这时候尽可以使用官方提供好的XxxxButton，这样按下动画、禁用显示灰色等特性就无须再去实现了。 |
 | 手势 | [GestureDetector](https://api.flutter.dev/flutter/widgets/GestureDetector-class.html) | RawGestureDetector、Listener | Listener + GestureRecognizer = RawGestureDetector；RawGestureDetector + Common GestureRecognizer = GestureDetector 一般使用GestureDetector，如果预定义的手势不能满足需求，可以直接操作屏幕上监听的点使用Listener，或把这些点抽象成手势，实现对应的手势识别器，赋于RawGestureDetector这就形成了自定义手势。|
 | Item固定长度列表 | [ListView(itemExtent: 22.22,)](https://api.flutter.dev/flutter/widgets/ListView-class.html)、[SliverFixedExtentList](https://api.flutter.dev/flutter/widgets/SliverFixedExtentList-class.html) | SliverList | 既然知道了每一项的长度，就不要让容器动态去计算了，这在无限长度的布局中，可以提高不少性能。ListView如果没有设置itemExtent，最终实现就是SliverList，反之就是SliverFixedExtentList。 |
+| [固定扩展无限布局](#固定扩展无限布局) | [SingleChildScrollView](https://api.flutter.dev/flutter/widgets/SingleChildScrollView-class.html) | ListView | 如果布局比较固定，只是出现了一些不稳定因子，例如折叠伸缩文字，布局必须可变才能抵消其影响，这时候推荐使用此Widget。而只有在明确布局为无限长度时才推荐使用ListView。[[补充](#固定扩展无限布局)] |
 | 主题 | [Theme](https://api.flutter.dev/flutter/material/Theme-class.html) | 没有含义且多次重复的数值、颜色 | 这些数据比较分散，集中取值便于管理，更便于修改。界面的风格统一比内容更重要。 |
 | 待续 |  |  |  |
 
@@ -107,5 +108,39 @@ Container(
   ),
   child: child,
 ),
+
+```
+
+### 固定扩展无限布局
+
+[动手尝试一波](https://nomeleel.github.io/flutter_widget_guide/single_child_scroll_view_vs_list_view/index.html)
+
+**可以看到SingleChildScrollView在再次折叠文字后变为固定布局，页面便不可以滚动。而在成为滚动布局后，行为与ListView基本一致，比如Android溢出有水波纹，iOS溢出弹簧性显示。**
+
+<div align="center">
+    <img src="assets/screenshot/single_child_scroll_view_vs_list_view/no_scrollable_view.gif" width="30%"/>
+    <img src="assets/screenshot/single_child_scroll_view_vs_list_view/single_child_scroll_view_ios.gif" width="30%"/>
+    <img src="assets/screenshot/single_child_scroll_view_vs_list_view/list_view_ios.gif" width="30%"/>
+</div>
+<div align="center">
+    <img src="assets/screenshot/single_child_scroll_view_vs_list_view/single_child_scroll_view_android.gif" width="30%"/>
+    <img src="assets/screenshot/single_child_scroll_view_vs_list_view/list_view_android.gif" width="30%"/>
+</div>
+
+```dart
+_child = Column(children: _children);
+
+// 👍
+SingleChildScrollView(
+  child: _child,
+),
+
+// 🙅‍♂️ 
+ListView(
+  children: _children,
+)
+
+// 🙅‍♂️ 
+_child
 
 ```

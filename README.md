@@ -1,5 +1,5 @@
 # Flutter Widget Guide
-众说周知**Flutter**中一切皆为**Widget**，并且Widget之间还存在着嵌套组合的艺术，每个Widget可以功能单一，又可以将不同的Widget相互组合形成另一个Widget。然而这些Widget组合的结果就是，Weiget个数会成几何倍数增长，现在Widget个数怎么说也有500了吧。(这个是官方对Widget做的分类[Widget Catalog](https://flutter.dev/docs/development/ui/widgets)）。
+众所周知**Flutter**中一切皆为**Widget**，并且Widget之间还存在着嵌套组合的艺术，每个Widget可以功能单一，又可以将不同的Widget相互组合形成另一个Widget。然而这些Widget组合的结果就是，Weiget个数会成几何倍数增长，现在Widget个数怎么说也有500了吧。(这个是官方对Widget做的分类[Widget Catalog](https://flutter.dev/docs/development/ui/widgets)）。
 
 那么怎么合理的组合Widget形成另一个Widget，官方的**Container**就是一个很好的例子，他很好的将LimitedBox、ConstrainedBox、Align、Padding、ClipPath、DecoratedBox、Transform等Widget组合到了一起，这里可以看下[源码](https://github.com/flutter/flutter/blob/master/packages/flutter/lib/src/widgets/container.dart#L244)感受一下。
 
@@ -38,8 +38,9 @@
 | Item固定长度列表 | [ListView(itemExtent: 22.22,)](https://api.flutter.dev/flutter/widgets/ListView-class.html)、[SliverFixedExtentList](https://api.flutter.dev/flutter/widgets/SliverFixedExtentList-class.html) | SliverList | 既然知道了每一项的长度，就不要让容器动态去计算了，这在无限长度的布局中，可以提高不少性能。ListView如果没有设置itemExtent，最终实现就是SliverList，反之就是SliverFixedExtentList。 |
 | [固定扩展无限布局](#固定扩展无限布局) | [SingleChildScrollView](https://api.flutter.dev/flutter/widgets/SingleChildScrollView-class.html) | ListView | 如果布局比较固定，只是出现了一些不稳定因子，例如折叠伸缩文字，布局必须可变才能抵消其影响，这时候推荐使用此Widget。而只有在明确布局为无限长度时才推荐使用ListView。[[补充](#固定扩展无限布局)] |
 | 主题 | [Theme](https://api.flutter.dev/flutter/material/Theme-class.html) | 没有含义且多次重复的数值、颜色 | 这些数据比较分散，集中取值便于管理，更便于修改。界面的风格统一比内容更重要。 |
+| [弹性布局](#弹性布局) | [Flex](https://api.flutter.dev/flutter/widgets/Flex-class.html)、[Column](https://api.flutter.dev/flutter/widgets/Column-class.html)、[Row](https://api.flutter.dev/flutter/widgets/Row-class.html) |  | 我们有必要先看一下，他们之前的关系结构，然后再去考虑选择使用哪一个Widget。[关系](#弹性布局)] |
+| [填充弹性布局](#弹性布局) | [Flexible](https://api.flutter.dev/flutter/widgets/Flexible-class.html)、[Expanded](https://api.flutter.dev/flutter/widgets/Expanded-class.html)、[Spacer](https://api.flutter.dev/flutter/widgets/Spacer-class.html) |  | 👆 |
 | 待续 |  |  |  |
-
 
 ## 演示
 
@@ -54,6 +55,7 @@ Container(
   alignment: Alignment.center,
   child: Text(text),
 )
+
 // 🙅‍♂️     
 Container(
   color: Colors.blue,
@@ -81,6 +83,7 @@ PhysicalModel(
   borderRadius: borderRadius,
   child: child,
 )
+
 // 👍
 Card(
   color: Colors.grey,
@@ -92,6 +95,7 @@ Card(
   ),
   child: child,
 )
+
 // 🙅‍♂️ 
 Container(
   clipBehavior: Clip.hardEdge,
@@ -144,3 +148,78 @@ ListView(
 _child
 
 ```
+
+### 弹性布局
+
+[Flex](https://api.flutter.dev/flutter/widgets/Flex-class.html)、[Column](https://api.flutter.dev/flutter/widgets/Column-class.html)、[Row](https://api.flutter.dev/flutter/widgets/Row-class.html)
+
+```dart
+class Row extends Flex {
+  Row({
+    Key? key,
+    ...
+    List<Widget> children = const <Widget>[],
+  }) : super(
+    children: children,
+    key: key,
+    direction: Axis.horizontal, // 这里确定了水平方向
+    ...
+  );
+}
+
+// 看了Row，那闭着眼睛就知道Column肯定设置了Axis.vertical垂直方向。
+
+```
+
+**所以当布局水平、垂直显示方向不确定时，例如手机由竖屏切换到横屏，原本的Column就变成了Row，这时候就应该使用Flex，然后根据当前方向指定direction属性。**
+
+[Flexible](https://api.flutter.dev/flutter/widgets/Flexible-class.html)、[Expanded](https://api.flutter.dev/flutter/widgets/Expanded-class.html)、[Spacer](https://api.flutter.dev/flutter/widgets/Spacer-class.html)
+
+```dart
+class Expanded extends Flexible {
+  const Expanded({
+    Key? key,
+    int flex = 1,
+    required Widget child,
+  }) : super(key: key, flex: flex, fit: FlexFit.tight, child: child); // 这里设定了FlexFit.tight紧约束
+}
+
+//----------------------------------------------
+
+class Spacer extends StatelessWidget {
+  const Spacer({Key? key, this.flex = 1}) : super(key: key);
+
+  final int flex;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded( // 这里直接返回了包了一个最小SizedBox的Expanded。
+      flex: flex,
+      child: const SizedBox.shrink(),
+    );
+  }
+}
+
+//----------------------------------------------
+
+const SizedBox.shrink({ Key? key, Widget? child })
+  : width = 0.0,
+    height = 0.0,
+    super(key: key, child: child);
+
+//----------------------------------------------
+
+enum MainAxisAlignment {
+  start,
+  end,
+  center,
+  // 以下是三种用来填充空白的方式
+  spaceBetween,
+  spaceAround,
+  spaceEvenly,
+}
+```
+
+**所以如果子节点想要使用紧约束(紧约束这里可以理解为child会被强制占满整个空白，松约束就是child可以在零和最大约束之间使用自己的大小，不会被强制占满空白)，就使用Expanded。想要随时调整约束就用Flexible。**
+
+**如果你只是想填充弹性布局中固定子节点之外剩余的空白，可以直接使用已经封装好的弹性空白组件Spacer。但或许你可以直接使用MainAxisAlignment来组织空白空间去控制固定子节点的排列方式。**

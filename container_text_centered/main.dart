@@ -10,7 +10,7 @@ void main() {
 }
 
 class ContainerTextCentered extends StatelessWidget {
-  const ContainerTextCentered({Key key}) : super(key: key);
+  const ContainerTextCentered({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -10,28 +10,15 @@ void main() {
 }
 
 class PageViewKeepAlive extends StatefulWidget {
-  const PageViewKeepAlive({Key key}) : super(key: key);
+  const PageViewKeepAlive({Key? key}) : super(key: key);
 
   @override
   _PageViewKeepAliveState createState() => _PageViewKeepAliveState();
 }
 
 class _PageViewKeepAliveState extends State<PageViewKeepAlive> with SingleTickerProviderStateMixin {
-  TabController _controller;
-  List<Widget> _children;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = TabController(
-      length: 3,
-      vsync: this,
-    );
-
-    _children = <Widget>[
-      for (var i = 0; i < 3; i++) ListViewWidget(index: i),
-    ];
-  }
+  late TabController _controller = TabController(length: 3, vsync: this);
+  final List<Widget> _children = List.generate(3, (index) => ListViewWidget(index: index));
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +63,7 @@ class _PageViewKeepAliveState extends State<PageViewKeepAlive> with SingleTicker
 }
 
 class ListViewWidget extends StatefulWidget {
-  const ListViewWidget({Key key, this.index}) : super(key: key);
+  const ListViewWidget({Key? key, required this.index}) : super(key: key);
   final int index;
   @override
   _ListViewWidgetState createState() => _ListViewWidgetState();

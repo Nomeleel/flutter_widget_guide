@@ -10,7 +10,7 @@ void main() {
 }
 
 class SingleChildScrollViewVSListView extends StatefulWidget {
-  const SingleChildScrollViewVSListView({Key key}) : super(key: key);
+  const SingleChildScrollViewVSListView({Key? key}) : super(key: key);
 
   @override
   _SingleChildScrollViewVSListViewState createState() => _SingleChildScrollViewVSListViewState();
@@ -18,9 +18,9 @@ class SingleChildScrollViewVSListView extends StatefulWidget {
 
 class _SingleChildScrollViewVSListViewState extends State<SingleChildScrollViewVSListView>
     with SingleTickerProviderStateMixin {
-  TabController _controller;
-  List<Widget> _children;
-  Widget _child;
+  late TabController _controller = TabController(length: 3, vsync: this);
+  late List<Widget> _children;
+  late Widget _child;
 
   final String text = '苏子曰：'
       '“客亦知夫水与月乎？逝者如斯，而未尝往也；'
@@ -129,14 +129,14 @@ class _SingleChildScrollViewVSListViewState extends State<SingleChildScrollViewV
 /// 更多组件请查看： https://github.com/Nomeleel/awesome_flutter
 /// 此组件Demo请看：https://nomeleel.github.io/awesome_flutter/#/text_expansion_view
 class TextExpansion extends StatefulWidget {
-  const TextExpansion(this.text, this.maxLines, {Key key, this.maxWidth, this.style, this.expansionWidget})
+  const TextExpansion(this.text, this.maxLines, {Key? key, this.maxWidth, required this.style, this.expansionWidget})
       : super(key: key);
 
   final String text;
   final int maxLines;
   final TextStyle style;
-  final double maxWidth;
-  final Widget expansionWidget;
+  final double? maxWidth;
+  final Widget? expansionWidget;
 
   @override
   TextExpansionState createState() => TextExpansionState();
@@ -144,7 +144,7 @@ class TextExpansion extends StatefulWidget {
 
 class TextExpansionState extends State<TextExpansion> {
   bool _expand = false;
-  bool _didExceedMaxLines;
+  late bool _didExceedMaxLines;
 
   @override
   void didChangeDependencies() {
@@ -183,7 +183,7 @@ class TextExpansionState extends State<TextExpansion> {
               Positioned(
                 bottom: 0.0,
                 right: 0.0,
-                child: switchWidget(widget.expansionWidget),
+                child: switchWidget(widget.expansionWidget!),
               )
             ],
           );
@@ -194,7 +194,7 @@ class TextExpansionState extends State<TextExpansion> {
     }
   }
 
-  Text text([int maxLines]) {
+  Text text([int? maxLines]) {
     return Text(
       widget.text,
       maxLines: maxLines,

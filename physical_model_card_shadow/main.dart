@@ -10,7 +10,7 @@ void main() {
 }
 
 class PhysicalModelCardShadom extends StatelessWidget {
-  const PhysicalModelCardShadom({Key key}) : super(key: key);
+  const PhysicalModelCardShadom({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class PhysicalModelCardShadom extends StatelessWidget {
             PhysicalModel(
               color: Colors.grey,
               elevation: 10.0,
-              shadowColor: Colors.grey[900],
+              shadowColor: Colors.grey[900]!,
               clipBehavior: Clip.hardEdge,
               borderRadius: borderRadius,
               child: child,
